@@ -65,15 +65,17 @@ func normalizeNumbers(v interface{}) interface{} {
 	case float32:
 		return float64(v)
 	case map[string]interface{}:
+		result := make(map[string]interface{}, len(v))
 		for k, x := range v {
-			v[k] = normalizeNumbers(x)
+			result[k] = normalizeNumbers(x)
 		}
-		return v
+		return result
 	case []interface{}:
+		result := make([]interface{}, len(v))
 		for i, x := range v {
-			v[i] = normalizeNumbers(x)
+			result[i] = normalizeNumbers(x)
 		}
-		return v
+		return result
 	default:
 		return v
 	}
